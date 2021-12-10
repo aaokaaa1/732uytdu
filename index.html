@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Metro Transit</title>
+</head>
+
+<body id="home">
+    <div>
+        <div class="spacer"></div>
+        <HR>
+        <h1 class="title">Metro Transit</h1>
+        <p class="subtitle">Show operator your ticket</p>
+        <img src="1.gif">
+        <h1 class="time" id="demo"></h1>
+        <div class="card">
+            <p id="rush" class="l">Adult / Rush Hour Fare</p>
+            <p class="l2">Minneapolis/St Paul Metro Area</p>
+            <p id="demo_" class="bold"></p>
+        </div>
+    </div>
+    
+
+</body>
+</html>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+    h1 {
+        color: #3e3f43;
+        font-family: 'Helvetica', 'Arial', sans-serif;
+    }
+    .title {
+        font-weight: lighter;
+        margin-left: 6%;
+        font-size: 30px;
+        font-size: 6.25vw;
+        font-weight: bolder;
+    }
+    p, h1 { font-family: "Open Sans", sans-serif;
+        color: #3e3f43;
+    }
+    @font-face { font-family: Delicious; src: url('Delicious-Roman.otf'); } 
+    @font-face { font-family: Delicious; font-weight: bold; src: url('Delicious-Bold.otf'); }
+
+    .l {
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 
+  Helvetica, Arial, "Lucida Grande", sans-serif;
+        color: #3e3f43;
+        font-size: 30px;
+        font-size: 5vw;
+        margin-top: 2%;
+        font-weight: 150;
+    }
+    .l2{
+        font-size: 30px;
+        font-size: 2.7vw;
+        margin-top: -4.8%;
+
+    }
+    .spacer {
+        margin-top: 20%;
+        margin-bottom: 20%;
+    }
+    
+    .time {
+        font-family: 'Helvetica', 'Arial', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-size: 16vw;
+        margin-top: -3%;
+    }
+    .subtitle {
+        font-weight: lighter;
+        font-size: 30px;
+        font-size: 4vw;
+        margin-top: -6%;
+        margin-left: 6%;
+    }
+    .bold {
+        color: #757175;
+        font-family: 'Helvetica', 'Arial', sans-serif;
+        font-weight: bold;
+        font-size: 30px;
+        font-size: 4vw;
+    }
+    h1 {
+        font-weight: bold;
+        font-size: 30px;
+        font-size: 7.5vw;
+    }
+    img {
+        width: 78%;
+        margin: auto;
+        height: auto;
+        width: auto\9; /* ie8 */
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* height: auto;
+        width: auto\9; ie8 */
+    }
+    .card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin: 6%;
+    padding: 20px;
+    }
+
+    /* Add some padding inside the card container */
+    .container {
+    padding: 2px 16px;
+    }
+</style>
+
+<script>
+    Date.prototype.addTime = function(hours, minutes) {
+        h = this.getHours() + hours;
+        m = this.getMinutes() + minutes
+        while(m > 60) {
+            m = m - 60
+            h = h + 1
+        }
+        console.log(h)
+        while(h > 24) {
+            h = h - 24
+            console.log("~" + this.getDate())
+            this.setDate(this.getDate() + 1);
+            console.log(this.getDate())
+        }
+        this.setHours(h)
+        this.setMinutes(m)
+        return this;
+    };
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var l = new Date();
+    
+    // Set the date we're counting down to
+    if (((l.getHours() >= 6 && l.getHours() <= 9) || 
+        (l.getHours() >= 15 && l.getHours() <= 19)) &&
+        (l.getDay() >= 1 && l.getDay() <= 5)){
+            document.getElementById("rush").innerHTML = "Adult / Rush Hour Fare";
+    } else {
+        document.getElementById("rush").innerHTML = "Adult / Non-Rush Hour Fare";
+    }
+    
+    l.addTime(2,30)
+    var countDownDate = l.getTime();
+
+   //var countDownDate = new Date(now_.getTime() + diff*60000);
+    // var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+    var today = new Date().getTime()
+    
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+    
+      // Display the result in the element with id="demo"
+      var today = new Date();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+" AM";
+      if (today.getHours() > 12) {
+        var time = (today.getHours() - 12) + ":" + today.getMinutes() + ":" + today.getSeconds()+" PM";
+        }
+        document.getElementById("demo").innerHTML = today.toLocaleTimeString([], {hour: 'numeric', minute:'numeric', second: 'numeric'});;
+        // if (l.getHours() == 0) {
+        //     var time_ = "12" + ":" + l.getMinutes()+" AM";
+
+        // }else if (l.getHours() > 12) {
+        //     console.log(l.getHours())
+        // var time_ = (Math.abs(l.getHours() - 12)) + ":" + l.getMinutes() +" PM";
+        // } else {
+        //     var time_ = l.toLocaleTimeString();
+        // }
+        var time_ = l.toLocaleTimeString([], {hour: 'numeric', minute:'numeric'});
+        var date_ = (monthNames[l.getMonth()])+", "+l.getDate()+", " + l.getFullYear();
+        
+        document.getElementById("demo_").innerHTML = "Expires " + date_ +", "+ time_;
+    }, 1000);
+
+    
+
+    </script>
